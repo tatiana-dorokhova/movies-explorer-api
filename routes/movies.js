@@ -1,4 +1,4 @@
-const router = require('express').Router(); // создали роутер
+const router = require('express').Router();
 const { validateMovieId, validateMovieData } = require('../utils/validateRequestsData');
 
 const { getMovies, deleteMovieById, createMovie } = require('../controllers/movies');

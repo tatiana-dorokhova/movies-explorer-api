@@ -1,14 +1,24 @@
 const express = require('express');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const conf = require('./config/appConfig');
 const cors = require('./middlewares/cors');
-const router = require('./routes/index');
+const router = require('./routes');
 const handleErr = require('./middlewares/handleErr');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
+const limiter = rateLimit({
+  windowMs: 5 * 60 * 1000,
+  max: 100,
+});
+
 const app = express();
+
+app.use(helmet());
+app.use(limiter);
 
 app.use(cors);
 

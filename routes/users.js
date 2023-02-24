@@ -1,4 +1,4 @@
-const router = require('express').Router(); // создали роутер
+const router = require('express').Router();
 const { validateUserData } = require('../utils/validateRequestsData');
 
 const { getUserMe, updateUserData } = require('../controllers/users');
