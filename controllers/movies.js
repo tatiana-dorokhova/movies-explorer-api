@@ -12,15 +12,17 @@ const {
   WRONG_FILM_DATA_MESSAGE,
 } = require('../utils/constants');
 
+// возвращает все сохранённые текущим  пользователем фильмы с подробным полем owner
 const getMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
-    .populate(['owner'])
+    .populate('owner')
     .then((moviesList) => {
       res.send(moviesList);
     })
     .catch(next);
 };
 
+// возвращает сообщение об удалении фильма
 const deleteMovieById = (req, res, next) => {
   // сначала найти фильм в базе и сравнить id owner-а с текущим пользователем
   Movie.findById(req.params.movieId)
@@ -52,6 +54,7 @@ const deleteMovieById = (req, res, next) => {
     });
 };
 
+// возвращает все поля фильма с подробным полем owner
 const createMovie = (req, res, next) => {
   Movie.create({
     ...req.body,

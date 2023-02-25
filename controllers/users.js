@@ -15,6 +15,7 @@ const {
   ON_SIGNOUT_MESSAGE,
 } = require('../utils/constants');
 
+// возвращает email и name (пароль исключен на уровне select в схеме User)
 const getUserMe = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
@@ -29,6 +30,7 @@ const getUserMe = (req, res, next) => {
     .catch(next);
 };
 
+// возвращает email и name (пароль намеренно исключен из ответа)
 const createUser = (req, res, next) => {
   const { email, password, name } = req.body;
 
@@ -60,6 +62,7 @@ const createUser = (req, res, next) => {
     });
 };
 
+// возвращает email и name (пароль исключен на уровне select в схеме User)
 const updateUserData = (req, res, next) => {
   const { email, name } = req.body;
 
@@ -95,10 +98,11 @@ const updateUserData = (req, res, next) => {
     });
 };
 
+// возвращает токен и информацию о пользователе (без пароля)
 const login = (req, res, next) => {
-  const { email, password, name } = req.body;
+  const { email, password } = req.body;
 
-  return User.findUserByCredentials(email, password, name)
+  return User.findUserByCredentials(email, password)
     .then((user) => {
       // создадим токен
       const token = jsonwebtoken.sign(
@@ -125,6 +129,7 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
+// возвращает сообщение о выходе из системы
 const clearCookie = (req, res) => {
   // ситуации, когда токен не передан или по токену не найден пользователь,
   // отрабатывает мидлварь auth

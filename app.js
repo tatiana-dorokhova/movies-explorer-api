@@ -1,23 +1,20 @@
 const express = require('express');
 const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+const limiter = require('./middlewares/rateLimiter');
 const conf = require('./config/appConfig');
 const cors = require('./middlewares/cors');
 const router = require('./routes');
 const handleErr = require('./middlewares/handleErr');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const limiter = rateLimit({
-  windowMs: 5 * 60 * 1000,
-  max: 100,
-});
-
 const app = express();
 
 app.use(helmet());
+
+app.use(requestLogger); // логгер запросов
 app.use(limiter);
 
 app.use(cors);
@@ -29,8 +26,6 @@ app.use(express.json());
 
 mongoose.set('strictQuery', false);
 mongoose.connect(conf.DB_CONN);
-
-app.use(requestLogger); // логгер запросов
 
 app.use(router);
 
