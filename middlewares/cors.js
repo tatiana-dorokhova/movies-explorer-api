@@ -2,7 +2,7 @@
 const allowedCors = [
   'https://dorokhova.diploma.nomoredomains.work',
   'http://dorokhova.diploma.nomoredomains.work',
-  'localhost:3000',
+  'http://localhost:3000',
 ];
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
 
