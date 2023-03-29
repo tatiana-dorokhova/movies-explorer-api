@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { isEmail } = require('validator');
 const UnauthorizedError = require('../errors/unauthorizedError');
 const { WRONG_AUTH_DATA_MESSAGE } = require('../utils/constants');
+const { validateName } = require('../utils/validateValue');
 
 const userSchema = new mongoose.Schema(
   {
@@ -31,6 +32,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 2,
       maxlength: 30,
+      validate: {
+        validator: validateName,
+        message: (props) =>
+          `${props.value} - имя может содержать только латинские и русские буквы, дефис и пробел`,
+      },
     },
   },
   { versionKey: false },

@@ -1,6 +1,8 @@
 const JWT_SALT_LENGTH = 10;
 
-const REGEX_URL_PATTERN = /https?:\/\/(w{3}\.)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([#]*)/;
+const REGEX_URL_PATTERN =
+  /https?:\/\/(w{3}\.)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([#]*)/;
+const REGEX_NAME_PATTERN = /[А-Яа-яЁёa-zA-Z\s-]{2,30}/;
 
 const CREATED_STATUS = 201;
 
@@ -25,6 +27,7 @@ const EMAIL_ALREADY_USED_MESSAGE = 'Пользователь с таким email
 module.exports = {
   JWT_SALT_LENGTH,
   REGEX_URL_PATTERN,
+  REGEX_NAME_PATTERN,
   CREATED_STATUS,
   INTERNAL_SERVER_ERROR,
   INT_SERV_ERR_MESSAGE,
