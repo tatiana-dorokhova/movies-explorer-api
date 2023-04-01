@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+// const path = require('path');
 const { limiter } = require('./middlewares/rateLimiter');
 const conf = require('./config/appConfig');
 const cors = require('./middlewares/cors');
@@ -11,6 +12,8 @@ const handleErr = require('./middlewares/handleErr');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
+
+// app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(helmet());
 
